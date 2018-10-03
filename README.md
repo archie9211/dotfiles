@@ -1,2 +1,2 @@
 # scripts
-Some scripts for making things easier
+Some useful shell scripts for making things easier
