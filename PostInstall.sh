@@ -14,9 +14,13 @@ elif [ -f /etc/arch-release ]; then
 	echo "Arch Linux"
 	sudo pacman -Syu reflector 
 	sudo reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist 
-	sudo pacman -Sy vim yay vlc tmux openssh gnome-tweaks julia 
+	sudo pacman -Sy vim vlc tmux openssh gnome-tweaks julia git
 	sudo systemctl enable sshd.service
-	yay -s zsh google-chrome sublime-text-dev  
+	git clone https://aur.archlinux.org/yay.git
+	cd yay
+	makepkg -si
+	cd -
+	yay -S zsh google-chrome sublime-text-dev  
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	
 	
