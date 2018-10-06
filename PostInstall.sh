@@ -12,15 +12,14 @@ if [ -f /etc/debian_version ]; then
 
 elif [ -f /etc/arch-release ]; then
 	echo "Arch Linux"
-	sudo pacman-mirrors -f && sudo pacman -Syy
-	sudo pacman -Sy yaourt
-	yaourt -Syyu --aur --noconfirm --force
-	yaourt -s gedit
-	yaourt -s docky
-	yaourt -s zsh
-	yaourt -s openvpn
-	yaourt -s git
-	yaourt -s google-chrome
+	sudo pacman -Syu reflector 
+	sudo reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist 
+	sudo pacman -Sy vim yay vlc tmux openssh gnome-tweaks julia 
+	sudo systemctl enable sshd.service
+	yay -s zsh google-chrome sublime-text-dev  
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	
+	
 # elif [ -f /etc/redhat-release ] || [ -f /etc/system-release-cpe ]; then
 # 	echo "Red Hat / CentOS"
 # elif [ -f /etc/SUSE-brand ] || [ -f /etc/SuSE-brand ] || [ -f /etc/SuSE-release ] || [ -d /etc/susehelp.d ]; then
