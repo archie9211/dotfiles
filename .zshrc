@@ -145,3 +145,4 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # export EDITOR=code
 export EDITOR=vim
 alias sudo="sd"
+alias sd="sudo"
