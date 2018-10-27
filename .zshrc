@@ -147,3 +147,4 @@ export EDITOR=vim
 alias sudo="sd"
 alias sd="sudo"
 alias html="cd /web/apache/htdocs/devdaily/html"
+alias logs="cd /web/apache/htdocs/devdaily/logs"
