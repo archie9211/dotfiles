@@ -146,3 +146,4 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export EDITOR=vim
 alias sudo="sd"
 alias sd="sudo"
+alias html="cd /web/apache/htdocs/devdaily/html"
