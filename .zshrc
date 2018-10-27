@@ -144,3 +144,4 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # export EDITOR="/Applications/TextEdit.app/Contents/MacOS/TextEdit"
 # export EDITOR=code
 export EDITOR=vim
+alias sudo="sd"
