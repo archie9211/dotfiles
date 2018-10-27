@@ -42,9 +42,9 @@ echo "Movings Files"
 cd anykernel
 mv $KERNEL_DIR/arch/arm64/boot/Image.gz-dtb Image.gz-dtb
 echo "Making Zip"
-zip -r AzurE-Oreo-X00TD-$BUILD_TIME *
+zip -r DarkOne-Oreo-pie-X00TD-$BUILD_TIME *
 cd ../
-mv anykernel/AzurE-Oreo-X00TD-$BUILD_TIME.zip /home/archie/work/msm-4.4.y/oldReleases/AzurE-Oreo-X00TD-$BUILD_TIME.zip
-echo -e "Kernel is named as $yellow AzurE-Oreo-X00TD-$BUILD_TIME.zip $nocol and can be found at $yellow /home/archie/work/msm-4.4.y/oldReleases$nocol"
+mv anykernel/DarkOne-Oreo-pie-X00TD-$BUILD_TIME.zip /home/archie/work/msm-4.4.y/oldReleases/DarkOne-Oreo-pie-X00TD-$BUILD_TIME.zip
+echo -e "Kernel is named as $yellow DarkOne-Oreo-pie-X00TD-$BUILD_TIME.zip $nocol and can be found at $yellow /home/archie/work/msm-4.4.y/oldReleases$nocol"
 fi
 
