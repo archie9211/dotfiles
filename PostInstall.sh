@@ -18,7 +18,8 @@ if [ -f /etc/debian_version ]; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-
+	mv $HOME/.zshrc $HOME/.zshrc.bak
+	curl -o $HOME/.zshrc "https://raw.githubusercontent.com/archie9211/scripts/master/.zshrc"
 
 
 elif [ -f /etc/arch-release ]; then
@@ -44,5 +45,6 @@ elif [ -f /etc/arch-release ]; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-
+	mv $HOME/.zshrc $HOME/.zshrc.bak
+	curl -o $HOME/.zshrc "https://raw.githubusercontent.com/archie9211/scripts/master/.zshrc"
 fi
