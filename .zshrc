@@ -1,13 +1,17 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+if [ -f ~/.zshInsulter/zsh.command-not-found ]; then
+    . ~/.zshInsulter/zsh.command-not-found
+fi
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/{$USER}/.oh-my-zsh"
+export ZSH="/home/archie/.oh-my-zsh"
 
+export EDITOR=vim
+export USE_CCACHE=1
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="random"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -27,7 +31,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -36,7 +40,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -52,7 +56,7 @@ ZSH_THEME="agnoster"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+ HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -63,14 +67,13 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  bundler
-  dotenv
-  osx
-  rake
-  rbenv
-  ruby
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  zsh-completions
 )
 
+# reloading the completion:
+autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -101,50 +104,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-# See also https://github.com/Falkor/dotfiles/blob/master/oh-my-zsh/
-# Font taken from https://github.com/stefano-meschiari/dotemacs/blob/master/SourceCodePro%2BPowerline%2BAwesome%2BRegular.ttf
-#
-
-POWERLEVEL9K_MODE='awesome-patched'
-
-# Disable dir/git icons
-POWERLEVEL9K_HOME_ICON=''
-POWERLEVEL9K_HOME_SUB_ICON=''
-POWERLEVEL9K_FOLDER_ICON=''
-
-DISABLE_AUTO_TITLE="true"
-
-POWERLEVEL9K_VCS_GIT_ICON=''
-POWERLEVEL9K_VCS_STAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
-POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
-
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
-#POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs history time)
-
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
-
-
-POWERLEVEL9K_STATUS_VERBOSE=false 
-export DEFAULT_USER="$USER"
-POWERLEVEL9K_MODE='nerdfont-complete'
-source  ~/.zsh/powerlevel9k/powerlevel9k.zsh-theme
-
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# export EDITOR="/Applications/TextEdit.app/Contents/MacOS/TextEdit"
-# export EDITOR=code
-export EDITOR=vim
-alias sudo="sd"
-alias sd="sudo"
-alias html="cd /web/apache/htdocs/devdaily/html"
-alias logs="cd /web/apache/htdocs/devdaily/logs"
+alias hotspot="sudo create_ap -m nat wlo1 eno1 qwerty789 123456890"
+alias apkinstall="for file in *.apk; do adb install $file; done"
+alias proxy="export http_proxy=http://172.16.20.2:3128 && export https_proxy=http://172.16.20.2:3128 &&  echo Proxy set to 172.16.20.2:3128" 
+alias noproxy="export http_proxy="" && export https_proxy="" "
+alias gitproxy="git config --global http.proxy 172.16.20.2:3128 && git config --global --get http.proxy" 
+alias gitnoproxy="git config --global --unset http.proxy"
