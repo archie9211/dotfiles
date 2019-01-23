@@ -4,7 +4,7 @@ if [ -f ~/.zshInsulter/zsh.command-not-found ]; then
     . ~/.zshInsulter/zsh.command-not-found
 fi
 # Path to your oh-my-zsh installation.
-export ZSH="/home/archie/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 export EDITOR=vim
 export USE_CCACHE=1
