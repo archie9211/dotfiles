@@ -5,8 +5,8 @@ if [ -f /etc/debian_version ]; then
 	sudo apt upgrade    
 	sudo apt install git vim 
 	#lets install chrome 
-	rm -rf /etc/apt/sources.list.d/*chrome*
-	rm -rf /etc/apt/*chrome*
+	sudo rm -rf /etc/apt/sources.list.d/*chrome*
+	sudo rm -rf /etc/apt/*chrome*
 	
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 	echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
