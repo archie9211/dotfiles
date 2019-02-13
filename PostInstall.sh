@@ -15,11 +15,11 @@ if [ -f /etc/debian_version ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	mkdir "$HOME/.vim"
 	curl -o "$HOME/.vim/vimrc" "https://raw.githubusercontent.com/archie9211/scripts/8fcfba08135823635112748dee14bb262214768b/vimrc"
-	git clone https://github.com/zsh-users/zsh-autosuggestions "${$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-        git clone https://github.com/zsh-users/zsh-autosuggestions "${$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 	mv $HOME/.zshrc $HOME/.zshrc.bak
 	curl -o $HOME/.zshrc "https://raw.githubusercontent.com/archie9211/scripts/master/.zshrc"
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 elif [ -f /etc/arch-release ]; then
@@ -42,9 +42,10 @@ elif [ -f /etc/arch-release ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	mkdir "$HOME/.vim"
 	curl -o "$HOME/.vim/vimrc" "https://raw.githubusercontent.com/archie9211/scripts/8fcfba08135823635112748dee14bb262214768b/vimrc"
-	git clone https://github.com/zsh-users/zsh-autosuggestions "${$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-        git clone https://github.com/zsh-users/zsh-autosuggestions "${$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 	mv $HOME/.zshrc $HOME/.zshrc.bak
 	curl -o $HOME/.zshrc "https://raw.githubusercontent.com/archie9211/scripts/master/.zshrc"
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 fi
