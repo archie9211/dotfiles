@@ -104,6 +104,62 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+# See also https://github.com/Falkor/dotfiles/blob/master/oh-my-zsh/
+# Font taken from https://github.com/stefano-meschiari/dotemacs/blob/master/SourceCodePro%2BPowerline%2BAwesome%2BRegular.ttf
+#
+
+POWERLEVEL9K_MODE='awesome-patched'
+
+# Disable dir/git icons
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+POWERLEVEL9K_FOLDER_ICON=''
+
+DISABLE_AUTO_TITLE="true"
+
+POWERLEVEL9K_VCS_GIT_ICON=''
+POWERLEVEL9K_VCS_STAGED_ICON='\u00b1'
+POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
+POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
+POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
+POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
+
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
+#POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs history time)
+
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+
+
+POWERLEVEL9K_STATUS_VERBOSE=false 
+export DEFAULT_USER="$USER"
+POWERLEVEL9K_MODE='nerdfont-complete'
+source  ~/.zsh/powerlevel9k/powerlevel9k.zsh-theme
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# export EDITOR="/Applications/TextEdit.app/Contents/MacOS/TextEdit"
+# export EDITOR=code
+export EDITOR=vim
+alias sudo="sd"
+alias sd="sudo"
+alias html="cd /web/apache/htdocs/devdaily/html"
+alias logs="cd /web/apache/htdocs/devdaily/logs"
+alias cd..="cd .."
+alias cd...="cd ../.."
+alias cd...="cd ../.."
+alias gi="grep -i"
+alias l="ls -al"
+alias lm="ls -al | more"
+alias lf="ls -FG"
+alias h=history
+alias hm="history | more"
 alias hotspot="sudo create_ap -m nat wlo1 eno1 qwerty789 123456890"
 alias apkinstall="for file in *.apk; do adb install $file; done"
 alias proxy="export http_proxy=http://172.16.20.2:3128 && export https_proxy=http://172.16.20.2:3128 &&  echo Proxy set to 172.16.20.2:3128" 
