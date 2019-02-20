@@ -3,7 +3,7 @@ if [ -f /etc/debian_version ]; then
 	echo "Debian/Ubuntu"
 	sudo apt update
 	sudo apt upgrade    
-	sudo apt install git vim 
+	sudo apt install git vim curl
 	#lets install chrome 
 	sudo rm -rf /etc/apt/sources.list.d/*chrome*
 	sudo rm -rf /etc/apt/*chrome*
@@ -26,7 +26,7 @@ elif [ -f /etc/arch-release ]; then
 	echo "Arch Linux"
 	sudo pacman -Syu reflector 
 	sudo reflector --country India --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist 
-	sudo pacman -Sy vim vlc tmux openssh gnome-tweaks julia git cmake clang
+	sudo pacman -Sy vim vlc tmux openssh gnome-tweaks julia git cmake clang curl
 #	sudo systemctl enable sshd.service
 	git clone https://aur.archlinux.org/yay.git
 	cd yay || exit
