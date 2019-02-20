@@ -1,13 +1,17 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+if [ -f ~/.zshInsulter/zsh.command-not-found ]; then
+    . ~/.zshInsulter/zsh.command-not-found
+fi
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/{$USER}/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
+export EDITOR=vim
+export USE_CCACHE=1
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="random"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -27,7 +31,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -36,7 +40,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -52,7 +56,7 @@ ZSH_THEME="agnoster"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+ HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -63,14 +67,13 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  bundler
-  dotenv
-  osx
-  rake
-  rbenv
-  ruby
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  zsh-completions
 )
 
+# reloading the completion:
+autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -157,3 +160,9 @@ alias lm="ls -al | more"
 alias lf="ls -FG"
 alias h=history
 alias hm="history | more"
+alias hotspot="sudo create_ap -m nat wlo1 eno1 qwerty789 123456890"
+alias apkinstall="for file in *.apk; do adb install $file; done"
+alias proxy="export http_proxy=http://172.16.20.2:3128 && export https_proxy=http://172.16.20.2:3128 &&  echo Proxy set to 172.16.20.2:3128" 
+alias noproxy="export http_proxy="" && export https_proxy="" "
+alias gitproxy="git config --global http.proxy 172.16.20.2:3128 && git config --global --get http.proxy" 
+alias gitnoproxy="git config --global --unset http.proxy"
