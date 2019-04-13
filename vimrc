@@ -10,7 +10,7 @@ set backspace=indent,eol,start  "Allow backspace in insert mode
 set showcmd                     "Show incomplete cmds down the bottom
 set showmode                    "Show current mode down the bottom
 set autoread                    "Reload files changed outside vim
-"set mouse=a
+set mouse=a
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -41,16 +41,16 @@ call plug#begin('~/.vim/plugged')
 " Cool plugins
 Plug 'Valloric/YouCompleteMe'
 
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
-
+"Plug 'google/vim-maktaba'
+"Plug 'google/vim-codefmt'
+"Plug 'google/vim-glaive'
+"Plug 'lervag/vimtex'
 Plug 'scrooloose/nerdtree'
 Plug 'jiangmiao/auto-pairs'
-Plug 'skywind3000/asyncrun.vim'
+"Plug 'skywind3000/asyncrun.vim'
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 "Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'tomasiser/vim-code-dark'
@@ -58,6 +58,7 @@ Plug 'sjl/badwolf'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
 Plug 'yggdroot/indentLine'
+Plug 'mattn/emmet-vim'
 
 "Plug 'vim-scripts/conque-GDB'
 
@@ -66,7 +67,7 @@ Plug 'yggdroot/indentLine'
 "Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
-call glaive#Install()
+"call glaive#Install()
 filetype plugin indent on 
 syntax enable
 
@@ -126,12 +127,12 @@ let g:ycm_semantic_triggers =  {
             \ }
 
 "text formatting
-augroup autoformat_settings
-    autocmd FileType proto,javascript AutoFormatBuffer clang-format
-    autocmd FileType python AutoFormatBuffer yapf
-augroup END
+"augroup autoformat_settings
+"    autocmd FileType proto,javascript AutoFormatBuffer clang-format
+"    autocmd FileType python AutoFormatBuffer yapf
+"augroup END
 " use google style for clang-format
-Glaive codefmt clang_format_style='google'
+"Glaive codefmt clang_format_style='google'
 
 " setup for indent line
 let g:indentLine_char = '|'
