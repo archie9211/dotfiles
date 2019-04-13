@@ -11,7 +11,7 @@ export USE_CCACHE=1
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="random"
+ZSH_THEME="bira"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -69,7 +69,7 @@ plugins=(
   git
   zsh-syntax-highlighting
   zsh-autosuggestions
-  zsh-completions
+#  zsh-completions
 )
 
 # reloading the completion:
@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -140,19 +140,40 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 POWERLEVEL9K_STATUS_VERBOSE=false 
 export DEFAULT_USER="$USER"
 POWERLEVEL9K_MODE='nerdfont-complete'
-source  ~/.zsh/powerlevel9k/powerlevel9k.zsh-theme
+#source  ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # export EDITOR="/Applications/TextEdit.app/Contents/MacOS/TextEdit"
 # export EDITOR=code
+# My custom funstions
+
+function extract () {
+if [ -f $1 ] ; then
+case $1 in
+*.tar.bz2) tar xvjf $1 ;;
+*.tar.gz) tar xvzf $1 ;;
+*.tar.xz) tar Jxvf $1 ;;
+*.bz2) bunzip2 $1 ;;
+*.rar) rar x $1 ;;
+*.gz) gunzip $1 ;;
+*.tar) tar xvf $1 ;;
+*.tbz2) tar xvjf $1 ;;
+*.tgz) tar xvzf $1 ;;
+*.zip) unzip -d `echo $1 | sed 's/\(.*\)\.zip/\1/'` $1;;
+*.Z) uncompress $1 ;;
+*.7z) 7z x $1 ;;
+*) echo "don't know how to extract '$1'" ;;
+esac
+else
+echo "'$1' is not a valid file!"
+fi
+}
+#############################################################
 export EDITOR=vim
 alias sudo="sd"
 alias sd="sudo"
-alias html="cd /web/apache/htdocs/devdaily/html"
-alias logs="cd /web/apache/htdocs/devdaily/logs"
 alias cd..="cd .."
-alias cd...="cd ../.."
 alias cd...="cd ../.."
 alias gi="grep -i"
 alias l="ls -al"
@@ -166,3 +187,6 @@ alias proxy="export http_proxy=http://172.16.20.2:3128 && export https_proxy=htt
 alias noproxy="export http_proxy="" && export https_proxy="" "
 alias gitproxy="git config --global http.proxy 172.16.20.2:3128 && git config --global --get http.proxy" 
 alias gitnoproxy="git config --global --unset http.proxy"
+#cuda specific PATH
+export PATH=/usr/local/cuda-10.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
