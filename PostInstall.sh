@@ -12,7 +12,12 @@ if [ -f /etc/debian_version ]; then
 	echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	sudo apt-get update && sudo apt-get install google-chrome-stable
 	sudo apt install zsh
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	if[-f install.sh];then mv install.sh install.bak; fi
+	wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+	sed -i 's/RUNZSH=${RUNZSH:-yes}/RUNZSH=${RUNZSH:-no}/g' install.sh
+	bash install.sh
+	rm install.sh
+	if[-f install.bak];then mv install.sh.bak install.sh; fi
 	mkdir "$HOME/.vim"
 	curl -o "$HOME/.vim/vimrc" "https://raw.githubusercontent.com/archie9211/scripts/8fcfba08135823635112748dee14bb262214768b/vimrc"
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -39,8 +44,12 @@ elif [ -f /etc/arch-release ]; then
 	yay -S grub2-theme-archlinux
 	yay -S vertex-themes 
 	sudo pacman -S zsh
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	if[-f install.sh];then mv install.sh install.bak; fi
+	wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+	sed -i 's/RUNZSH=${RUNZSH:-yes}/RUNZSH=${RUNZSH:-no}/g' install.sh
+	bash install.sh
+	rm install.sh
+	if[-f install.bak];then mv install.sh.bak install.sh; fi	
 	mkdir "$HOME/.vim"
 	curl -o "$HOME/.vim/vimrc" "https://raw.githubusercontent.com/archie9211/scripts/8fcfba08135823635112748dee14bb262214768b/vimrc"
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
