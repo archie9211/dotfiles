@@ -20,6 +20,7 @@ if [ -f /etc/debian_version ]; then
 	mv $HOME/.zshrc $HOME/.zshrc.bak
 	curl -o $HOME/.zshrc "https://raw.githubusercontent.com/archie9211/scripts/master/.zshrc"
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	vim +'PlugInstall --sync' +qa
 
 
 elif [ -f /etc/arch-release ]; then
@@ -47,5 +48,5 @@ elif [ -f /etc/arch-release ]; then
 	mv $HOME/.zshrc $HOME/.zshrc.bak
 	curl -o $HOME/.zshrc "https://raw.githubusercontent.com/archie9211/scripts/master/.zshrc"
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
+	vim +'PlugInstall --sync' +qa
 fi
