@@ -36,11 +36,11 @@ if [ -f /etc/debian_version ]; then
 		case $choice in
 			1) 
 				echo -ne "|  Update   |${red}Installing..${reset}|\033[0K\r"
-				sudo apt-get update >> /tmp/scripts.log
+				sudo apt-get -y update >> /tmp/scripts.log
 				echo  "|  Update   | ${green}Completed${reset}  |"
 				echo "${hr}"
 				echo -ne "|  Upgrade  |${red}Installing..${reset}|\033[0K\r"
-				sudo apt-get upgrade  >> /tmp/scripts.log 
+				sudo apt-get -y upgrade  >> /tmp/scripts.log 
 				echo  "|  Upgrade  | ${green}Completed${reset}  |"
 				echo "${hr}"
 
@@ -54,13 +54,13 @@ if [ -f /etc/debian_version ]; then
 				echo -ne "|Google Chrome|${red}Installing..${reset}|\033[0K\r"
 
 				sudo bash -c "echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list "
-				sudo apt-get update  >> /tmp/scripts.log && sudo apt-get install google-chrome-stable >> /tmp/scripts.log
+				sudo apt-get -y update  >> /tmp/scripts.log && sudo apt-get -y install google-chrome-stable >> /tmp/scripts.log
 				echo  "|Google Chrome|${green}Installed${reset}   |"
 
 			;;
 			3) 
 				echo -ne "|  zsh      |${red}Installing..${reset}|\033[0K\r"
-				sudo apt-get install zsh >> /tmp/scripts.log
+				sudo apt-get -y install zsh >> /tmp/scripts.log
 				echo "|  zsh      |  ${green}Installed${reset} |"
 				echo "${hr}"
 
@@ -77,6 +77,7 @@ if [ -f /etc/debian_version ]; then
 				sed -i 's/RUNZSH=${RUNZSH:-yes}/RUNZSH=${RUNZSH:-no}/g' install.sh 
 				bash install.sh >> /tmp/scripts.log
 				rm install.sh
+				
 				if [ -f install.bak ];then mv install.sh.bak install.sh; fi
 				echo "| oh-my-zsh |  ${green}Installed${reset} |"
 				echo "${hr}"
