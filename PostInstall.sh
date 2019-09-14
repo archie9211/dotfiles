@@ -80,6 +80,10 @@ if [ -f /etc/debian_version ]; then
 				
 				if [ -f install.bak ];then mv install.sh.bak install.sh; fi
 				echo "| oh-my-zsh |  ${green}Installed${reset} |"
+				echo "To make zsh Default shell run this after install : "
+				echo "sudo chsh <username> "
+				echo "then enter the location of zsh (find with 'whereis zsh' ) "
+				echo "e.g. /bin/zsh "
 				echo "${hr}"
 
 			;;
