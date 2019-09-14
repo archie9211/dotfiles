@@ -21,3 +21,6 @@ Options Available :
                            │    [*] 8   vim                                                             │ 
                            │    [*] 9   Custom vimrc                                                    │ 
                            │    [*] 10  VIM PLUG 
+
+
+script logs for debian based distros are at /tmp/scripts.log
