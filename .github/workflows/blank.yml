@@ -1,0 +1,19 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        wget https://gist.githubusercontent.com/archie9211/c67cc689145d9adc191e512f7ed7f83c/raw/63fc19073eab967f658d300cef5e87250049e926/temp.sh
+        ls
+        chmod a+x temp.sh
+        bash temp.sh
