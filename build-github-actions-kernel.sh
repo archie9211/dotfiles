@@ -5,7 +5,7 @@ KERNEL_DIR=$PWD
 TG_BOT_TOKEN=$1
 CHATID=$2
 PREFIX=$3
-
+echo "bot token : $TG_BOT_TOKEN chat id $CHATID"
 exports() {
 	export KBUILD_BUILD_USER="archie"
 	export KBUILD_BUILD_HOST="HyperBeast"
