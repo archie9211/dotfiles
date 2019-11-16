@@ -2,71 +2,19 @@
 set -e o pipefail
 
 KERNEL_DIR=$PWD
-TG_BOT_TOKEN=$1
-CHATID=$2
-PREFIX=$3
-echo "bot token : $TG_BOT_TOKEN chat id $CHATID"
-exports() {
-	export KBUILD_BUILD_USER="archie"
-	export KBUILD_BUILD_HOST="HyperBeast"
-	export ARCH=arm64
-	export SUBARCH=arm64
-	export CROSS_COMPILE_ARM32=$KERNEL_DIR/linaro32/bin/armv8l-linux-gnueabihf-
-# 	export KBUILD_COMPILER_STRING=$($KERNEL_DIR/clang-llvm/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
-# 	LD_LIBRARY_PATH=$KERNEL_DIR/clang-llvm/lib64:$LD_LIBRARY_PATH
-# 	export LD_LIBRARY_PATH
-	export CROSS_COMPILE=$KERNEL_DIR/linaro/bin/aarch64-linux-gnu-
-# 	PATH=$KERNEL_DIR/clang-llvm/bin/:$KERNEL_DIR/aarch64-linux-android-4.9/bin/:$PATH
-# 	export PATH
-	export BOT_MSG_URL="https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage"
-	export BOT_BUILD_URL="https://api.telegram.org/bot$TG_BOT_TOKEN/sendDocument"
-	export PROCS=$(nproc --all)
-	DEFCONFIG=chef_defconfig
-}
+ARG1=$1 #It is the devicename [generally codename]
+ARG2=$2 #It is the make arguments, whether clean / dirty / def_regs [regenerates defconfig]
+ARG3=$3 #Build should be pushed or not [PUSH / NOPUSH]
+DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
+export ZIPNAME="DarkOne-chef-Oreo-Pie-" #Specifies the name of kernel
 
-clone() {
-	echo " "
-	echo "★★Cloning GCC Toolchain from GitHub .."
-	git clone --progress -j32 --depth 1 --no-single-branch https://github.com/archie9211/linaro -b master linaro
-	git clone --progress -j32 --depth 1 --no-single-branch https://github.com/archie9211/linaro -b arm32 linaro32
 
-	echo "★★GCC cloning done"
-	echo ""
-# 	echo "★★Cloning Clang 9 sources"
-# 	wget $CLANG_URL
-# 	mkdir clang-llvm
-# 	tar -C clang-llvm -xvf clang*.tar.gz
-# 	rm -rf clang*.tar.gz
-# 	echo "★★Clang Done, Now Its time for AnyKernel .."
-	git clone --depth 1 --no-single-branch https://github.com/archie9211/AnyKernel2 anykernel
-# 	echo "★★Cloning libufdt"
-# 	git clone https://android.googlesource.com/platform/system/libufdt $KERNEL_DIR/scripts/ufdt/libufdt
-	echo "★★Cloning Kinda Done..!!!"
-}
-
-tg_post_msg() {
-	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$2" \
-	-d "disable_web_page_preview=true" \
-	-d "parse_mode=html" \
-	-d text="$1"
-
-}
-
-tg_post_build() {
-	curl --progress-bar -F document=@"$1" $BOT_BUILD_URL \
-	-F chat_id="$2"  \
-	-F "disable_web_page_preview=true" \
-	-F "parse_mode=html" \
-	-F caption="$3"  
-}
 
 build_kernel() {
 	make O=out $DEFCONFIG
 	BUILD_START=$(date +"%s")
 	tg_post_msg "<b>NEW CI DarkOne Build Triggered</b>%0A<b>Date : </b><code>$(TZ=Asia/Jakarta date)</code>%0A<b>Device : </b><code>chef</code>%0A<b>Pipeline Host : </b><code>Github Actions</code>%0A<b>Host Core Count : </b><code>$PROCS</code>%0A<b>Compiler Used : </b><code>$KBUILD_COMPILER_STRING</code>" "$CHATID"
-	make -j$PROCS O=out \
-		CROSS_COMPILE=$CROSS_COMPILE \
-		CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 2>&1 | tee error.log
+	
 # 		CC=$CC \
 # 		CLANG_TRIPLE=aarch64-linux-gnu- 2>&1 | tee error.log
 	#make dtbo image
@@ -96,3 +44,128 @@ exports
 # clone
 # build_kernel
 gen_zip
+
+
+DEFCONFIG=$ARG1_defconfig
+
+
+##---------------------------------------------------##
+
+#START : Argument 3 [ARG3] Check
+case "$ARG3" in
+  "PUSH" ) # Push build to TG Channel
+      build_push=true
+  ;;
+  "NOPUSH" ) # Do not push
+      build_push=false
+  ;;
+  * ) echo -e "\nError..!! Unknown command. Please refer README.\n"
+      return
+  ;;
+esac # END : Argument 3 [ARG3] Check
+
+##-----------------------------------------------------##
+
+else
+  echo -e "\nToo many Arguments..!! Provided - $# , Required - 3\nCheck README"
+  return
+#Get outta
+fi
+
+##------------------------------------------------------##
+
+#Now Its time for other stuffs like cloning, exporting, etc
+
+clone() {
+	echo " "
+	echo "★★Cloning GCC Toolchain from GitHub .."
+	git clone --progress -j32 --depth 1 --no-single-branch https://github.com/archie9211/linaro -b master linaro
+	git clone --progress -j32 --depth 1 --no-single-branch https://github.com/archie9211/linaro -b arm32 linaro32
+
+	echo "★★GCC cloning done"
+	echo ""
+	git clone --depth 1 --no-single-branch https://github.com/archie9211/AnyKernel2 anykernel
+	echo "★★Cloning Kinda Done..!!!"
+}
+
+##------------------------------------------------------##
+
+function exports {
+	export KBUILD_BUILD_USER="archie"
+	export KBUILD_BUILD_HOST="HyperBeast"
+	export ARCH=arm64
+	export SUBARCH=arm64
+	export CROSS_COMPILE_ARM32=$KERNEL_DIR/linaro32/bin/armv8l-linux-gnueabihf-
+	export CROSS_COMPILE=$KERNEL_DIR/linaro/bin/aarch64-linux-gnu-
+	export BOT_MSG_URL="https://api.telegram.org/bot$token/sendMessage"
+	export BOT_BUILD_URL="https://api.telegram.org/bot$token/sendDocument"
+	export PROCS=$(nproc --all)
+}
+
+##---------------------------------------------------------##
+
+function tg_post_msg {
+	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$2" \
+	-d "disable_web_page_preview=true" \
+	-d "parse_mode=html" \
+	-d text="$1"
+
+}
+
+##----------------------------------------------------------------##
+
+function tg_post_build {
+	curl --progress-bar -F document=@"$1" $BOT_BUILD_URL \
+	-F chat_id="$2"  \
+	-F "disable_web_page_preview=true" \
+	-F "parse_mode=html" \
+	-F caption="$3"  
+}
+
+##----------------------------------------------------------##
+
+
+##----------------------------------------------------------##
+
+function build_kernel {
+	if [ "$build_push" = true ]; then
+		tg_post_msg "<b>$CIRCLE_BUILD_NUM CI Build Triggered</b>%0A<b>Date : </b><code>$(TZ=Asia/Jakarta date)</code>%0A<b>Device : </b><code>$DEVICE</code>%0A<b>Pipeline Host : </b><code>CircleCI</code>%0A<b>Host Core Count : </b><code>$PROCS</code>%0A<b>Compiler Used : %0A Branch : </b><code>$CIRCLE_BRANCH</code>%0A<b>Status : </b>#Nightly" "$CHATID"
+	fi
+	make O=out $DEFCONFIG
+	BUILD_START=$(date +"%s")
+	make -j$PROCS O=out \
+		CROSS_COMPILE=$CROSS_COMPILE \
+		CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 2>&1 | tee error.log
+	BUILD_END=$(date +"%s")
+	DIFF=$((BUILD_END - BUILD_START))
+	check_img
+}
+
+##-------------------------------------------------------------##
+
+function check_img {
+	if [ -f $KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb ] 
+	    then
+		gen_zip
+	else
+		tg_post_build "error.log" "$CHATID" "<b>Build failed to compile after $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds</b>"
+	fi
+}
+
+##--------------------------------------------------------------##
+
+function gen_zip {
+	mv $KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb AnyKernel2/Image.gz-dtb
+# 	mv $KERNEL_DIR/out/arch/arm64/boot/dtbo.img AnyKernel2/dtbo.img
+	cd anykernel
+	zip -r9 $ZIPNAME-$DATE * -x .git README.md
+	MD5CHECK=$(md5sum $ZIPNAME-$DATE.zip | cut -d' ' -f1)
+	tg_post_build $ZIPNAME* "$CHATID" "Build took : $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s) | MD5 Checksum : <code>$MD5CHECK</code>"
+	cd ..
+}
+
+clone
+exports
+build_kernel
+
+##----------------*****-----------
