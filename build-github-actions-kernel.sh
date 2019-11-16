@@ -7,48 +7,6 @@ ARG2=$2 #It is the make arguments, whether clean / dirty / def_regs [regenerates
 ARG3=$3 #Build should be pushed or not [PUSH / NOPUSH]
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 export ZIPNAME="DarkOne-chef-Oreo-Pie-" #Specifies the name of kernel
-
-
-
-build_kernel() {
-	make O=out $DEFCONFIG
-	BUILD_START=$(date +"%s")
-	tg_post_msg "<b>NEW CI DarkOne Build Triggered</b>%0A<b>Date : </b><code>$(TZ=Asia/Jakarta date)</code>%0A<b>Device : </b><code>chef</code>%0A<b>Pipeline Host : </b><code>Github Actions</code>%0A<b>Host Core Count : </b><code>$PROCS</code>%0A<b>Compiler Used : </b><code>$KBUILD_COMPILER_STRING</code>" "$CHATID"
-	
-# 		CC=$CC \
-# 		CLANG_TRIPLE=aarch64-linux-gnu- 2>&1 | tee error.log
-	#make dtbo image
-# 	make O=out dtbo.img
-	BUILD_END=$(date +"%s")
-	DIFF=$((BUILD_END - BUILD_START))
-	check_img
-}
-check_img() {
-	if [ -f $KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb ] 
-	    then
-		gen_zip
-	else
-		tg_post_build "error.log" "$CHATID" "<b>Build failed to compile after $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds</b>"
-	fi
-}
-gen_zip() {
-# 	mv $KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb anykernel/Image.gz-dtb
-# 	mv $KERNEL_DIR/out/arch/arm64/boot/dtbo.img AnyKernel2/dtbo.img
-	cd $KERNEL_DIR/anykernel
-	zip -r9 DarkOne-v3.0-chef-$PREIFIX * -x .git README.md
-	MD5CHECK=$(md5sum $ZIPNAME-$ARG1-$DATE.zip | cut -d' ' -f1)
-	tg_post_build DarkOne-v3.0-chef-$PREFIX.zip "$CHATID" "Build took : $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s) | MD5 Checksum : <code>$MD5CHECK</code>"
-	cd ..
-}
-exports
-# clone
-# build_kernel
-gen_zip
-
-
-DEFCONFIG=$ARG1_defconfig
-
-
 ##---------------------------------------------------##
 
 #START : Argument 3 [ARG3] Check
