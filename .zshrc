@@ -10,8 +10,7 @@ export USE_CCACHE=1
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bira"
-
+ZSH_THEME=powerlevel10k/powerlevel10k
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
@@ -66,6 +65,7 @@ ZSH_THEME="bira"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  gpg-agent
   zsh-syntax-highlighting
   zsh-autosuggestions
 #  zsh-completions
@@ -179,10 +179,14 @@ alias h=history
 alias hm="history | more"
 alias hotspot="sudo create_ap -m nat wlo1 eno1 qwerty789 123456890"
 alias apkinstall="for file in *.apk; do adb install $file; done"
-alias proxy="export http_proxy=http://172.16.20.2:3128 && export https_proxy=http://172.16.20.2:3128 &&  echo Proxy set to 172.16.20.2:3128" 
+alias proxy="export http_proxy=http://172.16.24.3:3128 && export https_proxy=http://172.16.24.3:3128 &&  echo Proxy set to 172.16.20.2:3128" 
 alias noproxy="export http_proxy="" && export https_proxy="" "
 alias gitproxy="git config --global http.proxy 172.16.20.2:3128 && git config --global --get http.proxy" 
 alias gitnoproxy="git config --global --unset http.proxy"
-#cuda specific PATH
-export PATH=/usr/local/cuda-10.0/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+#cuda specific PATH for pop os 
+#export PATH=/usr/local/cuda-10.0/bin:$PATH
+#export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+TZ='Asia/Kolkata'; export TZ
